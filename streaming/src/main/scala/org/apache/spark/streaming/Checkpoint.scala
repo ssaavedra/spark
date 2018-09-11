@@ -54,6 +54,16 @@ class Checkpoint(ssc: StreamingContext, val checkpointTime: Time)
       "spark.driver.bindAddress",
       "spark.driver.port",
       "spark.master",
+      "spark.kubernetes.driver.pod.name",
+      "spark.kubernetes.driver.limit.cores",
+      "spark.kubernetes.executor.limit.cores",
+      "spark.kubernetes.executor.podNamePrefix",
+      "spark.kubernetes.initContainer.configMapName",
+      "spark.kubernetes.initContainer.configMapKey",
+      "spark.kubernetes.initContainer.remoteJars",
+      "spark.kubernetes.initContainer.remoteFiles",
+      "spark.kubernetes.mountDependencies.jarsDownloadDir",
+      "spark.kubernetes.mountDependencies.filesDownloadDir",
       "spark.yarn.jars",
       "spark.yarn.keytab",
       "spark.yarn.principal",
@@ -67,6 +77,8 @@ class Checkpoint(ssc: StreamingContext, val checkpointTime: Time)
       .remove("spark.driver.host")
       .remove("spark.driver.bindAddress")
       .remove("spark.driver.port")
+      .remove("spark.kubernetes.driver.pod.name")
+      .remove("spark.kubernetes.executor.podNamePrefix")
     val newReloadConf = new SparkConf(loadDefaults = true)
     propertiesToReload.foreach { prop =>
       newReloadConf.getOption(prop).foreach { value =>
